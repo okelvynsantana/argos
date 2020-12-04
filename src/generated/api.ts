@@ -1,4 +1,4 @@
-import { BaseApiConfig, Context, SdkgenError } from "@sdkgen/node-runtime";
+import { BaseApiConfig, Context, SdkgenError, SdkgenErrorWithData } from "@sdkgen/node-runtime";
 
 export interface ApiResponse {
     status: number
