@@ -1,0 +1,9 @@
+@description Resposta padrão da api
+type ApiResponse {
+  
+  status: int
+  message: string
+  error: bool
+}
+
+fn checkApiStatus(): ApiResponse
