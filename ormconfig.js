@@ -14,7 +14,7 @@ module.exports = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   logging: false,
-  migrations: ["src/database/migrations/*.{js,ts}"],
+  migrations: ["config/database/migrations/*.{js,ts}"],
   entities: ["src/models/*.{js,ts}"],
   cli: {
     migrationsDir: "src/database/migrations",

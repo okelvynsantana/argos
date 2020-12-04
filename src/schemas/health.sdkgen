@@ -7,3 +7,7 @@ type ApiResponse {
 }
 
 fn checkApiStatus(): ApiResponse
+
+error InternalServerError {
+  message: string
+}

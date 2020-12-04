@@ -1,0 +1,5 @@
+type FaceResponse {
+  match: bool
+}
+
+fn searchFaceInBase(image: bytes): FaceResponse

@@ -1,1 +1,2 @@
 import "./schemas/health"
+import "./schemas/faces"
