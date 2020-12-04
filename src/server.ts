@@ -1,4 +1,5 @@
 import { SdkgenHttpServer } from "@sdkgen/node-runtime";
+import "./controllers";
 
 import { api } from "./api";
 
