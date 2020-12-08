@@ -1,1 +1,2 @@
 import "./CheckApiStatusController";
+import "./FaceController";
