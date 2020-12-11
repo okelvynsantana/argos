@@ -39,13 +39,16 @@ export const handleIndexFace = async (image: Buffer): Promise<string> => {
       MaxFaces: 1,
       QualityFilter: "AUTO",
     },
-    (err) => {
-      console.error(err);
-      throw new ServiceError(strings.errors.rekognition.internalError);
+    (err, data) => {
+      if (err) {
+        console.error(err);
+        throw new ServiceError(strings.errors.rekognition.internalError);
+      }
+      return data;
     },
   );
 
-  return "Rosto indexada com sucesso";
+  return strings.success.rekognition.indexFaces;
 };
 
 export const handleSearchFace = async (image: Buffer): Promise<Rekognition.DetectFacesResponse> => {

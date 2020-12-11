@@ -23,21 +23,25 @@ api.fn.searchFaceInBase = async (_ctx: Context, { image }): Promise<FaceResponse
   }
 
   const userExists = await handleSearchFaceByImage(image);
-  const faceId = userExists.FaceMatches!.length > 0 ? userExists.FaceMatches!.map((face) => face.Face!.FaceId!) : null;
-  const similarity =
-    userExists.FaceMatches!.length > 0 ? userExists.FaceMatches!.map((face) => face.Similarity!) : null;
+  const info =
+    userExists.FaceMatches!.length > 0
+      ? userExists.FaceMatches!.map((face) => {
+          return {
+            faceId: face.Face!.FaceId!,
+            similarity: face.Similarity!,
+          };
+        })
+      : null;
 
   if (userExists.FaceMatches!.length === 0) {
     await handleIndexFace(image);
     return {
       match: false,
-      faceId,
-      similarity,
+      info,
     };
   }
   return {
     match: true,
-    faceId,
-    similarity,
+    info,
   };
 };

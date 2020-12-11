@@ -8,7 +8,9 @@ const strings = {
     },
   },
   success: {
-    rekognition: {},
+    rekognition: {
+      indexFaces: "Rosto indexado com sucesso",
+    },
   },
 };
 

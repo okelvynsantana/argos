@@ -15,7 +15,7 @@ module.exports = {
   database: process.env.DB_NAME,
   logging: false,
   migrations: ["config/database/migrations/*.{js,ts}"],
-  entities: ["src/models/*.{js,ts}"],
+  entities: ["src/entities/*.{js,ts}"],
   cli: {
     migrationsDir: "src/database/migrations",
   },

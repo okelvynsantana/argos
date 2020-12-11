@@ -1,7 +1,10 @@
 type FaceResponse {
   match: bool
-  similarity: float[]?
-  faceId: string[]?
+  info: Face[]?
+}
+type Face {
+  similarity: float
+  faceId: string
 }
 
 fn searchFaceInBase(image: bytes): FaceResponse

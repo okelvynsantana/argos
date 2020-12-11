@@ -17,8 +17,12 @@ export interface ApiResponse {
 
 export interface FaceResponse {
     match: boolean
-    similarity: number[] | null
-    faceId: string[] | null
+    info: Face[] | null
+}
+
+export interface Face {
+    similarity: number
+    faceId: string
 }
 
 export class InternalServerError extends SdkgenErrorWithData<InternalServerErrorData> {}
@@ -89,8 +93,11 @@ export class ApiConfig<ExtraContextT> extends BaseApiConfig<ExtraContextT> {
             },
             FaceResponse: {
                 match: "bool",
-                similarity: "float[]?",
-                faceId: "string[]?"
+                info: "Face[]?"
+            },
+            Face: {
+                similarity: "float",
+                faceId: "string"
             }
         }
     }
