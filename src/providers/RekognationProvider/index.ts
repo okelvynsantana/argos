@@ -1,6 +1,7 @@
 import { config as awsConfig, Rekognition } from "aws-sdk";
 import { awsConfig as awsConfigKey, recognitionConfig } from "../../../config/aws";
-import { api } from "../../api";
+import { ServiceError } from "../../generated/api";
+import strings from "../../utils/strings";
 
 const rekognition = new Rekognition();
 awsConfig.update(awsConfigKey);
@@ -14,12 +15,12 @@ export const handleSearchFaceByImage = async (image: Buffer): Promise<Rekognitio
           Bytes: image,
         },
         MaxFaces: 1,
-        FaceMatchThreshold: 90,
+        FaceMatchThreshold: 99,
       },
       (err) => {
         if (err) {
           console.error(err);
-          throw api.err.Fatal("Erro ao encontrar rosto");
+          throw new ServiceError(strings.errors.rekognition.internalError);
         }
       },
     )
@@ -40,10 +41,11 @@ export const handleIndexFace = async (image: Buffer): Promise<string> => {
     },
     (err) => {
       console.error(err);
+      throw new ServiceError(strings.errors.rekognition.internalError);
     },
   );
 
-  return "Face indexada com sucesso";
+  return "Rosto indexada com sucesso";
 };
 
 export const handleSearchFace = async (image: Buffer): Promise<Rekognition.DetectFacesResponse> => {
@@ -51,7 +53,7 @@ export const handleSearchFace = async (image: Buffer): Promise<Rekognition.Detec
     .detectFaces({ Image: { Bytes: image }, Attributes: ["ALL"] }, (err, data) => {
       if (err) {
         console.error(err);
-        throw api.err.Fatal("Erro ao tentar detectar faces na imagem");
+        throw new ServiceError(strings.errors.rekognition.internalError);
       }
       return data;
     })

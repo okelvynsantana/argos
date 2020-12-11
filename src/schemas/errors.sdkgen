@@ -1,0 +1,6 @@
+error InvalidArgument {
+  argumentName: string
+  reason: string
+}
+
+error ServiceError 

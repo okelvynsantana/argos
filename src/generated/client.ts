@@ -4,6 +4,11 @@ export interface InternalServerErrorData {
     message: string
 }
 
+export interface InvalidArgumentData {
+    argumentName: string
+    reason: string
+}
+
 export interface ApiResponse {
     status: number
     message: string
@@ -12,9 +17,15 @@ export interface ApiResponse {
 
 export interface FaceResponse {
     match: boolean
+    similarity: number[] | null
+    faceId: string[] | null
 }
 
 export class InternalServerError extends SdkgenErrorWithData<InternalServerErrorData> {}
+
+export class InvalidArgument extends SdkgenErrorWithData<InvalidArgumentData> {}
+
+export class ServiceError extends SdkgenError {}
 
 export class Fatal extends SdkgenError {}
 
@@ -29,16 +40,30 @@ export class ApiClient extends SdkgenHttpClient {
 
 const errClasses = {
     InternalServerError,
+    InvalidArgument,
+    ServiceError,
     Fatal
 };
 
 const astJson = {
-    annotations: {},
+    annotations: {
+        "fn.checkApiStatus": [
+            {
+                type: "description",
+                value: "Return a message when api is running"
+            }
+        ]
+    },
     errors: [
         [
             "InternalServerError",
             "InternalServerErrorData"
         ],
+        [
+            "InvalidArgument",
+            "InvalidArgumentData"
+        ],
+        "ServiceError",
         "Fatal"
     ],
     functionTable: {
@@ -57,13 +82,19 @@ const astJson = {
         InternalServerErrorData: {
             message: "string"
         },
+        InvalidArgumentData: {
+            argumentName: "string",
+            reason: "string"
+        },
         ApiResponse: {
             status: "int",
             message: "string",
             error: "bool"
         },
         FaceResponse: {
-            match: "bool"
+            match: "bool",
+            similarity: "float[]?",
+            faceId: "string[]?"
         }
     }
 };

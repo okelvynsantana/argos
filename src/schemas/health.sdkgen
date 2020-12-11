@@ -6,6 +6,7 @@ type ApiResponse {
   error: bool
 }
 
+@description Return a message when api is running
 fn checkApiStatus(): ApiResponse
 
 error InternalServerError {
